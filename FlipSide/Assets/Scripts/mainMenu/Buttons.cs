@@ -32,6 +32,7 @@ public class Buttons : MonoBehaviour
     void StartGame()
     {
         Debug.Log("Start Game");
+        SceneManager.LoadScene("Game");
     }
 
     void Options()
