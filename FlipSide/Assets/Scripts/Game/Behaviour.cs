@@ -12,8 +12,11 @@ public class Behaviour : MonoBehaviour
 
     void Update()
     {
-        materialChange();
-        movement();
+        if (!playerCollisions.gameOver)
+        {
+            materialChange();
+            movement();
+        }
     }
 
     private void movement()

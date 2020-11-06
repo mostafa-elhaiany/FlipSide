@@ -7,9 +7,6 @@ public class MaterialChange : MonoBehaviour
 {
     public GameObject player;
 
-    public Material Red;
-    public Material Green;
-    public Material Blue;
     public static int usedMat;
     /*
      * 0:red
@@ -26,19 +23,22 @@ public class MaterialChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (usedMat)
+        if(!playerCollisions.gameOver)
         {
-            case 0:
-                player.GetComponent<MeshRenderer>().material = Red;
-                break;
-            case 1:
-                player.GetComponent<MeshRenderer>().material = Green;
-                break;
-            case 2:
-                player.GetComponent<MeshRenderer>().material = Blue;
-                break;
+            switch (usedMat)
+            {
+                case 0:
+                    player.GetComponent<MeshRenderer>().material.color = Color.red;
+                    break;
+                case 1:
+                    player.GetComponent<MeshRenderer>().material.color = Color.green;
+                    break;
+                case 2:
+                    player.GetComponent<MeshRenderer>().material.color = Color.blue;
+                    break;
+            }
         }
-
+        
     }
 
     
