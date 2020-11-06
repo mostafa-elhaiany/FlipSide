@@ -24,13 +24,14 @@ public class playerCollisions : MonoBehaviour
 
     void Update()
     {
-        bottomPlatform = this.gameObject.transform.position.y <= 3;
+        bottomPlatform = !anim.GetBool("jump");
 
 
-        if(this.gameObject.transform.position.y<-2)
+        if(this.gameObject.transform.position.y< 1.04f)
         {
-            this.transform.DetachChildren();
-            GameObject.Destroy(this.gameObject);
+            this.gameObject.transform.position = new Vector3(0, 1.04f, -42.8f);
+            //this.transform.DetachChildren();
+            //GameObject.Destroy(this.gameObject);
         }
     }
 
@@ -83,7 +84,7 @@ public class playerCollisions : MonoBehaviour
                 objectsMovment.incSpeed = true;
                 speedMult += 0.3f;
                 anim.SetFloat("speedMult", speedMult);
-                Generator.generationTime = Mathf.Min(0, Generator.generationTime - 0.2f);
+                Generator.generationTime = Mathf.Max(3, Generator.generationTime - 0.2f);
             }
 
         }
