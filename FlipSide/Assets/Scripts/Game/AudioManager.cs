@@ -23,12 +23,16 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        play("backGroundMusic");
+        if(!Options.mute)
+            play("backGroundMusic");
     }
 
     public void play(string soundName)
     {
-        Sound s =  Array.Find(sounds, sound => sound.name == soundName);
+        if (Options.mute)
+            return;
+
+            Sound s =  Array.Find(sounds, sound => sound.name == soundName);
         if (s == null)
         {
             Debug.LogWarning("Sound name " + soundName + " Does not exist!");

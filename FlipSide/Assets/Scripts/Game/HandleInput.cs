@@ -52,6 +52,15 @@ public class HandleInput : MonoBehaviour
             toggleCamera();
         }
 
+        if(Input.GetKeyUp(KeyCode.M))
+        {
+            Options.mute = !Options.mute;
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Debug.Log("Pause");
+        }
+
     }
 
     void toggleCamera()
