@@ -21,7 +21,15 @@ public class Behaviour : MonoBehaviour
 
     private void movement()
     {
-        Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0, 0);
+        Vector3 move;
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            move = new Vector3(Input.acceleration.x * speed * Time.deltaTime, 0, 0);
+        }
+        else
+        {
+            move = new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0, 0);
+        }
         player.transform.Translate(move);
     }
 

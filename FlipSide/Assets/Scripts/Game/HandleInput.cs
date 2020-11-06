@@ -17,6 +17,10 @@ public class HandleInput : MonoBehaviour
     private GameObject[] platforms;
 
     public int activePlatform = 0;
+    public static bool switchPlatform = false;
+    public static bool switchCamera = false;
+
+    private bool isJumping = false;
 
     
     void Start()
@@ -34,11 +38,16 @@ public class HandleInput : MonoBehaviour
         if (playerCollisions.gameOver)
             return;
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || switchPlatform)
         {
-            flipPlatform();
+            if(!isJumping)
+            {
+                isJumping = true;
+                flipPlatform();
+            }
         }
-        if (Input.GetKeyUp(KeyCode.C))
+
+        if (Input.GetKeyUp(KeyCode.C) || switchCamera)
         {
             toggleCamera();
         }
@@ -47,32 +56,45 @@ public class HandleInput : MonoBehaviour
 
     void toggleCamera()
     {
-        Cameras[activeCam].SetActive(false);
-        if (activeCam == 2)
-            activeCam++;
-        activeCam = (activeCam + 1) % 2;
-        Cameras[activeCam].SetActive(true);
+        if (activeCam == 0)
+        {
+            Cameras[0].SetActive(false);
+            activeCam = 1;
+            Cameras[1].SetActive(true);
+        }
+        else if(activeCam == 1)
+        {
+            if(activePlatform==0)
+            {
+                Cameras[1].SetActive(false);
+                activeCam = 0;
+                Cameras[0].SetActive(true);
+            }
+            else
+            {
+                Cameras[1].SetActive(false);
+                activeCam = 2;
+                Cameras[2].SetActive(true);
+            }
+        }
+        else if(activeCam == 2)
+        {
+            Cameras[2].SetActive(false);
+            activeCam = 1;
+            Cameras[1].SetActive(true);
+        }
+        switchCamera = false;
     }
+
     void flipPlatform()
     {
         activePlatform = (activePlatform + 1) % 2;
 
         anim.SetBool("jump", !anim.GetBool("jump"));
-        if(activeCam == 0)
-        {
-            Cameras[0].SetActive(false);
-            activeCam = 2;
-            Cameras[2].SetActive(true);
-        }
-        else if(activeCam == 2)
-        {
-            Cameras[2].SetActive(false);
-            activeCam = 0;
-            Cameras[0].SetActive(true);
-        }
 
         StartCoroutine(switchPlat());
 
+        
         //Vector3 newPos = platforms[activePlatform].transform.position;
 
         //player.transform.position = newPos;
@@ -80,19 +102,41 @@ public class HandleInput : MonoBehaviour
 
     IEnumerator switchPlat()
     {
+        Vector3 activePos = platforms[activePlatform].transform.position;
+        Vector3 newPos = new Vector3(player.transform.position.x,activePos.y,player.transform.position.z);
 
-        Vector3 newPos = platforms[activePlatform].transform.position;
         if (anim.GetBool("jump"))
         {
             yield return new WaitForSeconds(2f);
-            //elvis.transform.position = newPos - new Vector3(0, 1.6f, 0);
+            elvis.transform.position = newPos - new Vector3(0, 2f, 0);
         }
         else
         {
             yield return new WaitForSeconds(1.2f);
-            //elvis.transform.position = newPos + new Vector3(0, 0.8f, 0);
+            elvis.transform.position = newPos + new Vector3(0, 2f, 0);
         }
-        player.transform.position = newPos;
 
+        switchPlatformCamera();
+
+
+        player.transform.position = newPos;
+        isJumping = false;
+        switchPlatform = false;
+    }
+
+    private void switchPlatformCamera()
+    {
+        if (activeCam == 0)
+        {
+            Cameras[0].SetActive(false);
+            activeCam = 2;
+            Cameras[2].SetActive(true);
+        }
+        else if (activeCam == 2)
+        {
+            Cameras[2].SetActive(false);
+            activeCam = 0;
+            Cameras[0].SetActive(true);
+        }
     }
 }
