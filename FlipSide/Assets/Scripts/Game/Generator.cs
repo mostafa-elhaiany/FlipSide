@@ -31,6 +31,12 @@ public class Generator : MonoBehaviour
             if (r<0)
             {
                 Instantiate(HazardPrefab, pos, Quaternion.identity);
+                //GameObject haz =
+                //haz.transform.eulerAngles = new Vector3(
+                //                    haz.transform.eulerAngles.x + 180,
+                //                    haz.transform.eulerAngles.y + 90,
+                //                    haz.transform.eulerAngles.z
+                //);
             }
             else
             {

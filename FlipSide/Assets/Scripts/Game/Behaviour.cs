@@ -8,10 +8,16 @@ public class Behaviour : MonoBehaviour
     public GameObject player;
     private float time = 0.0f;
     public float speed = 15.0f;
-    public float interpolationPeriod = 3;
+    public float interpolationPeriod = 15;
+    
+    void Start()
+    {
+        
+    }
 
     void Update()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         if (!playerCollisions.gameOver)
         {
             materialChange();
@@ -30,8 +36,16 @@ public class Behaviour : MonoBehaviour
         {
             move = new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0, 0);
         }
-        //player.transform.Translate(move);
-        player.GetComponent<Rigidbody>().AddForce(move*200);
+        player.transform.Translate(move);
+        //player.GetComponent<Rigidbody>().AddForce(move*200);
+        if(player.transform.position.x<= -3.6f)
+        {
+            player.transform.position = new Vector3(-3.6f, player.transform.position.y, player.transform.position.z);
+        }
+        if(player.transform.position.x >= 3.6f)
+        {
+            player.transform.position = new Vector3(3.6f, player.transform.position.y, player.transform.position.z);
+        }
     }
 
     private void materialChange()

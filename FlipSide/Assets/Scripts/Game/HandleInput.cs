@@ -7,18 +7,14 @@ public class HandleInput : MonoBehaviour
     public GameObject[] Cameras;
     public int activeCam = 0;
 
-    public GameObject player;
-    public GameObject elvis;
-    public Animator anim;
+    public bool bottomPlat = true;
+    public static bool bottom = true;
 
-
-    public GameObject bottomTeleporter;
-    public GameObject upperTeleporter;
-    private GameObject[] platforms;
-
-    public int activePlatform = 0;
     public static bool switchPlatform = false;
     public static bool switchCamera = false;
+
+    public GameObject elvisTop;
+    public GameObject elvisBottom;
 
     private bool isJumping = false;
 
@@ -26,15 +22,16 @@ public class HandleInput : MonoBehaviour
     void Start()
     {
         Cameras[0].SetActive(true);
-        platforms = new GameObject[2];
-        platforms[0] = bottomTeleporter;
-        platforms[1] = upperTeleporter;
+        //elvisTop = GameObject.FindGameObjectWithTag("ElvisTop");
+        //elvisBottom = GameObject.FindGameObjectWithTag("ElvisBottom");
+        //elvisBottom.SetActive(false);
 
     }
 
 
     void Update()
     {
+
         if (playerCollisions.gameOver)
             return;
 
@@ -42,8 +39,9 @@ public class HandleInput : MonoBehaviour
         {
             if(!isJumping)
             {
-                isJumping = true;
+                //isJumping = true;
                 flipPlatform();
+                switchPlatform = false;
             }
         }
 
@@ -56,96 +54,32 @@ public class HandleInput : MonoBehaviour
         {
             Options.mute = !Options.mute;
         }
-        if (Input.GetKey(KeyCode.Escape))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Pause");
         }
+
+
+
 
     }
 
     void toggleCamera()
     {
-        if (activeCam == 0)
-        {
-            Cameras[0].SetActive(false);
-            activeCam = 1;
-            Cameras[1].SetActive(true);
-        }
-        else if(activeCam == 1)
-        {
-            if(activePlatform==0)
-            {
-                Cameras[1].SetActive(false);
-                activeCam = 0;
-                Cameras[0].SetActive(true);
-            }
-            else
-            {
-                Cameras[1].SetActive(false);
-                activeCam = 2;
-                Cameras[2].SetActive(true);
-            }
-        }
-        else if(activeCam == 2)
-        {
-            Cameras[2].SetActive(false);
-            activeCam = 1;
-            Cameras[1].SetActive(true);
-        }
+        Cameras[activeCam].SetActive(false);
+        activeCam = (activeCam + 1) % 2;
+        Cameras[activeCam].SetActive(true);
         switchCamera = false;
     }
 
     void flipPlatform()
     {
-        activePlatform = (activePlatform + 1) % 2;
-
-        anim.SetBool("jump", !anim.GetBool("jump"));
-
-        StartCoroutine(switchPlat());
-
-        
-        //Vector3 newPos = platforms[activePlatform].transform.position;
-
-        //player.transform.position = newPos;
+        bottomPlat = !bottomPlat;
+        bottom = bottomPlat;
+        elvisTop.SetActive(!bottomPlat);
+        elvisBottom.SetActive(bottomPlat);
     }
+    
 
-    IEnumerator switchPlat()
-    {
-        Vector3 activePos = platforms[activePlatform].transform.position;
-        Vector3 newPos = new Vector3(player.transform.position.x,activePos.y,player.transform.position.z);
-
-        if (anim.GetBool("jump"))
-        {
-            yield return new WaitForSeconds(2f);
-            elvis.transform.position = newPos - new Vector3(0, 2f, 0);
-        }
-        else
-        {
-            yield return new WaitForSeconds(1.2f);
-            elvis.transform.position = newPos + new Vector3(0, 2f, 0);
-        }
-
-        switchPlatformCamera();
-
-
-        player.transform.position = newPos;
-        isJumping = false;
-        switchPlatform = false;
-    }
-
-    private void switchPlatformCamera()
-    {
-        if (activeCam == 0)
-        {
-            Cameras[0].SetActive(false);
-            activeCam = 2;
-            Cameras[2].SetActive(true);
-        }
-        else if (activeCam == 2)
-        {
-            Cameras[2].SetActive(false);
-            activeCam = 0;
-            Cameras[0].SetActive(true);
-        }
-    }
 }
