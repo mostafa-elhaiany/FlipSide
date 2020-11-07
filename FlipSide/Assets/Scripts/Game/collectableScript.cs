@@ -5,8 +5,10 @@ using UnityEngine;
 public class collectableScript : MonoBehaviour
 {
     private Color color;
+    private GameObject spot;
     void Start()
     {
+        spot = this.gameObject.transform.GetChild(1).gameObject;
         int r = Random.Range(0,3);
         switch (r)
         {
@@ -20,6 +22,7 @@ public class collectableScript : MonoBehaviour
         }
 
         this.gameObject.GetComponent<MeshRenderer>().material.color = color;
+        spot.GetComponent<Light>().color = color;
     }
 
     void Update()

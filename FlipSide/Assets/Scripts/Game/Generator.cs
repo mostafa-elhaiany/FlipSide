@@ -10,11 +10,20 @@ public class Generator : MonoBehaviour
     private float time = 0.0f;
 
     public static float generationTime = 5;
+    public float audienceGenerationTime = 0.5f;
+    public bool isAudience = false;
+
 
     void Update()
     {
+        if(generationTime<=3)
+        {
+            audienceGenerationTime = 0.25f;
+        }
+
+        float genTime = isAudience ? audienceGenerationTime : generationTime;
         time += Time.deltaTime;
-        if(time>= generationTime)
+        if(time>= genTime)
         {
             time = 0.0f;
             float r = Random.Range(-10.0f, 10.0f); //50% chance of hazard or collectable

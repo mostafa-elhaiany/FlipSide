@@ -11,6 +11,7 @@ public class ButtonHandler : MonoBehaviour
     public Button flip;
 
     public Button toggleCamera;
+    
 
 
     void Start()
@@ -18,7 +19,6 @@ public class ButtonHandler : MonoBehaviour
         pause.GetComponentInChildren<Text>().text = "Pause";
         flip.GetComponentInChildren<Text>().text = "flip";
         toggleCamera.GetComponentInChildren<Text>().text = "Toggle Camera";
-
 
         Button btn1 = pause.GetComponent<Button>();
         btn1.onClick.AddListener(PauseGame);
@@ -28,7 +28,10 @@ public class ButtonHandler : MonoBehaviour
 
         Button btn3 = toggleCamera.GetComponent<Button>();
         btn3.onClick.AddListener(ToggleCamera);
+
+       
     }
+    
 
     void PauseGame()
     {

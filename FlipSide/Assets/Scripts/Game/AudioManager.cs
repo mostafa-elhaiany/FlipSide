@@ -27,6 +27,12 @@ public class AudioManager : MonoBehaviour
             play("backGroundMusic");
     }
 
+    void Update()
+    {
+      
+    }
+
+
     public void play(string soundName)
     {
         if (Options.mute)
