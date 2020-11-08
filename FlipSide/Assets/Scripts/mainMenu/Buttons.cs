@@ -6,13 +6,19 @@ using UnityEngine.SceneManagement;
 public class Buttons : MonoBehaviour
 {
     public Button startGame;
-
     public Button options;
+    public Button credits;
+    public Button quit;
+
+
     public Button[] optionList;
     public bool optionClicked;
     public bool mute;
 
-    public Button credits;
+
+    public Text pcText;
+    public Text androidText;
+
 
 
     void Start()
@@ -20,17 +26,32 @@ public class Buttons : MonoBehaviour
         startGame.GetComponentInChildren<Text>().text = "Start Game";
         options.GetComponentInChildren<Text>().text = "Options";
         credits.GetComponentInChildren<Text>().text = "Credits";
+        quit.GetComponentInChildren<Text>().text = "Quit";
 
 
-        Button btn1 = startGame.GetComponent<Button>();
-        btn1.onClick.AddListener(StartGame);
+        startGame.GetComponent<Button>().onClick.AddListener(StartGame);
+        options.GetComponent<Button>().onClick.AddListener(optionsClick);
+        credits.GetComponent<Button>().onClick.AddListener(Credits);
+        quit.GetComponent<Button>().onClick.AddListener(quitGame);
 
-        Button btn2 = options.GetComponent<Button>();
-        btn2.onClick.AddListener(optionsClick);
+        
 
-        Button btn3 = credits.GetComponent<Button>();
-        btn3.onClick.AddListener(Credits);
+    }
+    void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (optionClicked)
+                optionsBack();
+            else
+                quitGame();
+        }
+    }
 
+    void quitGame()
+    {
+        Debug.Log("QUITTING!");
+        Application.Quit();
     }
 
     void StartGame()
@@ -39,25 +60,74 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    void optionsBack()
+    {
+        optionClicked = false;
+        options.GetComponent<Animator>().SetBool("OptionsClicked", false);
+        StartCoroutine(optionsCoroutine());
+        foreach (Button option in optionList)
+        {
+            option.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator optionsCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        startGame.gameObject.SetActive(true);
+        quit.gameObject.SetActive(true);
+
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            androidText.gameObject.SetActive(false);
+        }
+        else
+        {
+            pcText.gameObject.SetActive(false);
+        }
+
+    }
+
     void optionsClick()
     {
         optionClicked = true;
         startGame.gameObject.SetActive(false);
-        credits.gameObject.SetActive(false);
+        quit.gameObject.SetActive(false);
 
         options.GetComponent<Animator>().SetBool("OptionsClicked", true);
         foreach(Button option in optionList)
         {
             option.gameObject.SetActive(true);
-            option.GetComponentInChildren<Text>().text = option.gameObject.name;
+            //option.GetComponentInChildren<Text>().text = option.gameObject.name;
             if(option.gameObject.name.Equals("Mute"))
             {
                 option.GetComponent<Button>().onClick.AddListener(muteonClick);
+                if (Options.mute)
+                    option.GetComponent<Button>().GetComponent<Image>().color = Color.red;
+                else
+                    option.GetComponent<Button>().GetComponent<Image>().color = Color.yellow;
             }
             else if (option.gameObject.name.Equals("Back"))
             {
-                option.GetComponent<Button>().onClick.AddListener(backOnClick);
+                option.GetComponent<Button>().onClick.AddListener(optionsBack);
             }
+            else if(option.gameObject.name.Equals("How to play"))
+            {
+            }
+            else if (option.gameObject.name.Equals("quit2"))
+            {
+                option.GetComponent<Button>().onClick.AddListener(quitGame);
+            }
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            androidText.gameObject.SetActive(true);
+        }
+        else
+        {
+            pcText.gameObject.SetActive(true);
         }
 
     }
@@ -67,18 +137,13 @@ public class Buttons : MonoBehaviour
         mute = !mute;
         Options.mute = mute;
         GameObject but = GameObject.Find("Mute");
-        if(!mute)
+        if(mute)
             but.GetComponent<Button>().GetComponent<Image>().color = Color.red;
         else
             but.GetComponent<Button>().GetComponent<Image>().color = Color.yellow;
 
     }
-
-    void backOnClick()
-    {
-        SceneManager.LoadScene("Main Menu");
-    }
-    
+   
 
     void Credits()
     {
