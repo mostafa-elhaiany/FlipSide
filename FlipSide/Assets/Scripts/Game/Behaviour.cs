@@ -55,8 +55,10 @@ public class Behaviour : MonoBehaviour
         if (time >= interpolationPeriod)
         {
             time = 0.0f;
-            
-            MaterialChange.usedMat = (MaterialChange.usedMat + 1) % 3;
+
+            MaterialChange.usedMat = UnityEngine.Random.Range(0, 3); ///(MaterialChange.usedMat + 1) % 3;
+            FindObjectOfType<AudioManager>().play("colorChange");
+
         }
     }
 }

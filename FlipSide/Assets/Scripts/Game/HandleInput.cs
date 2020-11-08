@@ -79,6 +79,7 @@ public class HandleInput : MonoBehaviour
         bottom = bottomPlat;
         elvisTop.SetActive(!bottomPlat);
         elvisBottom.SetActive(bottomPlat);
+        FindObjectOfType<AudioManager>().play("modeChange");
     }
     
 

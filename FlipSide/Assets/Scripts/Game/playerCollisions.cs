@@ -68,12 +68,12 @@ public class playerCollisions : MonoBehaviour
                 if(bottomPlatform)
                 {
                     score += 10;
-                    //player.GetComponent<AudioSource>().Play(0);
+                    FindObjectOfType<AudioManager>().play("collect1");
                 }
                 else
                 {
                     score -= 5;
-                    //player.GetComponent<AudioSource>().Play(0);
+                    FindObjectOfType<AudioManager>().play("incorrect");
                 }
             }
             else
@@ -81,12 +81,12 @@ public class playerCollisions : MonoBehaviour
                 if (bottomPlatform)
                 {
                     score -= 5;
-                    //player.GetComponent<AudioSource>().Play(0);
+                    FindObjectOfType<AudioManager>().play("incorrect");
                 }
                 else
                 {
                     score += 10;
-                    //player.GetComponent<AudioSource>().Play(0);
+                    FindObjectOfType<AudioManager>().play("collect1");
                 }
             }
 
@@ -104,7 +104,7 @@ public class playerCollisions : MonoBehaviour
         if (collision.gameObject.CompareTag("Hazard"))
         {
             health--;
-
+            FindObjectOfType<AudioManager>().play("incorrect");
             if (health<0)
             {
                 this.gameObject.transform.DetachChildren();
@@ -130,13 +130,12 @@ public class playerCollisions : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        
+        if(health<3)
+        {
+            health++;
+            FindObjectOfType<AudioManager>().play("drink");
+            GameObject.Destroy(other.gameObject);
+        }
     }
-
-    void OnTriggerExit(Collider other)
-    {
-
-    }
-
 
 }

@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         if (Options.mute)
             return;
 
-            Sound s =  Array.Find(sounds, sound => sound.name == soundName);
+        Sound s =  Array.Find(sounds, sound => sound.name == soundName);
         if (s == null)
         {
             Debug.LogWarning("Sound name " + soundName + " Does not exist!");

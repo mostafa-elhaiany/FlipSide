@@ -26,34 +26,22 @@ public class Generator : MonoBehaviour
         if(time>= genTime)
         {
             time = 0.0f;
-            float r = Random.Range(-10.0f, 10.0f); //50% chance of hazard or collectable
+            float r = Random.Range(0.0f, 10.0f);
+            if(r<3)
+            {
+                return;
+            }
+
             Vector3 pos = this.gameObject.transform.position;
+            r = Random.Range(-10.0f, 10.0f); //50% chance of hazard or collectable
             if (r<0)
             {
                 Instantiate(HazardPrefab, pos, Quaternion.identity);
-                //GameObject haz =
-                //haz.transform.eulerAngles = new Vector3(
-                //                    haz.transform.eulerAngles.x + 180,
-                //                    haz.transform.eulerAngles.y + 90,
-                //                    haz.transform.eulerAngles.z
-                //);
             }
             else
             {
                 Instantiate(CapsulePrefab, pos, Quaternion.identity);
             }
         }
-        //int x = 0;
-        
-        //Vector3 pos = new Vector3(-x * 2, 0, Random.Range(-10.0f, 10.0f));
-        //Instantiate(prefab, pos, Quaternion.identity);
-
-        //pos = new Vector3(-x * 2, 0, Random.Range(-10.0f, 10.0f));
-        //Instantiate(prefab, pos, Quaternion.identity);
-
-
-        //pos = new Vector3(-x * 2, 0, Random.Range(-10.0f, 10.0f));
-        //Instantiate(prefab, pos, Quaternion.identity);
-        
     }
 }
