@@ -36,6 +36,7 @@ public class ButtonHandler : MonoBehaviour
     void PauseGame()
     {
         Debug.Log("Pause");
+        PauseMenu.isPaused = !PauseMenu.isPaused;
 
     }
 

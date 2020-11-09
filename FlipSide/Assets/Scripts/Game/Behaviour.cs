@@ -20,6 +20,9 @@ public class Behaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (!playerCollisions.gameOver)
         {
+            if (PauseMenu.isPaused)
+                return;
+
             materialChange();
             movement();
         }

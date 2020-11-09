@@ -35,6 +35,16 @@ public class HandleInput : MonoBehaviour
         if (playerCollisions.gameOver)
             return;
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Pause");
+            PauseMenu.isPaused = !PauseMenu.isPaused;
+        }
+
+        if (PauseMenu.isPaused)
+            return;
+
+
         if (Input.GetKeyUp(KeyCode.Space) || switchPlatform)
         {
             if(!isJumping)
@@ -55,10 +65,7 @@ public class HandleInput : MonoBehaviour
             Options.mute = !Options.mute;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Pause");
-        }
+        
 
 
 

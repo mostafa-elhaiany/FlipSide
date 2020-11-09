@@ -13,6 +13,9 @@ public class healthGenerator : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.isPaused)
+            return;
+
         time += Time.deltaTime;
         if (time >= generationTime)
         {

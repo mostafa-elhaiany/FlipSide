@@ -14,8 +14,12 @@ public class Generator : MonoBehaviour
     public bool isAudience = false;
 
 
+
     void Update()
     {
+        if (PauseMenu.isPaused)
+            return;
+
         if(generationTime<=3)
         {
             audienceGenerationTime = 0.25f;

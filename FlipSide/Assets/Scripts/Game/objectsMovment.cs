@@ -10,7 +10,11 @@ public class objectsMovment : MonoBehaviour
 
     void Update()
     {
-        if(incSpeed)
+        if (PauseMenu.isPaused)
+            return;
+
+
+        if (incSpeed)
         {
             speed += 15;
             incSpeed = false;
