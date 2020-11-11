@@ -15,10 +15,13 @@ public class PauseMenu : MonoBehaviour
     public Button quit;
     public Image loadingScreen;
 
+    void start()
+    {
+        loadingScreen.gameObject.SetActive(false);
+    }
 
     void Update()
     {
-        //loadingScreen.gameObject.SetActive(false);
         resume.gameObject.SetActive(isPaused);
         restart.gameObject.SetActive(isPaused);
         quit.gameObject.SetActive(isPaused);
