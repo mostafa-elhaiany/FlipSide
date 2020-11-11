@@ -18,8 +18,8 @@ public class playerCollisions : MonoBehaviour
     public Animator anim2;
     private int NextBigScore = 50;
 
-    public static bool incHealth;
-    public static bool incScore;
+    public static bool incHealth=false;
+    public static bool incScore=false;
 
     private static float minGenTime = 0.5f;
 

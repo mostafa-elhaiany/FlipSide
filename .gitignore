@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+T13_40_10547_Mostafa_ElHayani*
+PC/*
+Android/*
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
