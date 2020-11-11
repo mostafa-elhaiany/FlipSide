@@ -42,9 +42,24 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         loadingScreen.gameObject.SetActive(true);
-        SceneManager.LoadScene("Game");
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach (GameObject obj in objs)
+        {
+            GameObject.Destroy(obj.gameObject);
+        }
+        objs = GameObject.FindGameObjectsWithTag("Hazard");
+        foreach (GameObject obj in objs)
+        {
+            GameObject.Destroy(obj.gameObject);
+        }
+        StartCoroutine(restarter());
     }
-
+    IEnumerator restarter()
+    {
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene("Game");
+        yield return new WaitForEndOfFrame();
+    }
     void quitGame()
     {
         Debug.Log("Quitting");

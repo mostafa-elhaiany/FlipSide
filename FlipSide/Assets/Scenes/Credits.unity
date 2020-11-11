@@ -357,22 +357,30 @@ MonoBehaviour:
 
     Assets used:
 
-    1. Asset
-    1 by person 1
+    1. Audience
+    Crowd by 8Bull
 
-    2. Asset 2 by person 2
+    2. Egypt Pack- Eagly by Openlab
 
-    3. Asset 3 by person 3
+    3. Microphone Mic DJ
+    PBR devotid
 
-    Music
-    used:
+    4. Modular Fences pack by PolySquid
 
-    1. Music 1 by person 1
+    5. Personnel Transport
+    Helicopter by Exis Interactive
+
+    6. BigVegas on Mixamo
+
+    Music used:
+
+    1.
+    JailHouse Rock by Elvis Presly
 
     2. Music 2 by person 2
 
-    3. Music 3
-    by person 3'
+    3. Audio imported
+    from freesoundeffect.net'
 --- !u!222 &165626725
 CanvasRenderer:
   m_ObjectHideFlags: 0

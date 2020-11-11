@@ -13,8 +13,14 @@ public class GameOverMenu : MonoBehaviour
     public Button quit;
     public Image loadingScreen;
 
-    public bool isGameover;
 
+    public bool isGameover;
+    public void Start()
+    {
+        isGameover = false;
+        loadingScreen.gameObject.SetActive(false);
+        menu.gameObject.SetActive(false);
+    }
     void Update()
     {
         isGameover = playerCollisions.gameOver;
@@ -32,12 +38,37 @@ public class GameOverMenu : MonoBehaviour
 
     
 
+    //void restartGame()
+    //{
+    //    isGameover = false;
+    //    loadingScreen.gameObject.SetActive(true);
+    //    SceneManager.LoadScene("Game");
+    //}
+
     void restartGame()
     {
-        isGameover = false;
         loadingScreen.gameObject.SetActive(true);
-        SceneManager.LoadScene("Game");
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach (GameObject obj in objs)
+        {
+            GameObject.Destroy(obj.gameObject);
+        }
+        objs = GameObject.FindGameObjectsWithTag("Hazard");
+        foreach (GameObject obj in objs)
+        {
+            GameObject.Destroy(obj.gameObject);
+        }
+        isGameover = false;
+        playerCollisions.gameOver = false;
+        StartCoroutine(restarter());
     }
+    IEnumerator restarter()
+    {
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene("Game");
+        yield return new WaitForEndOfFrame();
+    }
+
 
     void quitGame()
     {

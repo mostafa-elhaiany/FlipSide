@@ -65,7 +65,10 @@ public class HandleInput : MonoBehaviour
             Options.mute = !Options.mute;
         }
 
-        
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            playerCollisions.gameOver = true;
+        }
 
 
 
