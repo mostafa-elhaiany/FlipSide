@@ -11,6 +11,8 @@ public class Buttons : MonoBehaviour
     public Button quit;
 
 
+    public Image creditsMenu;
+
     public Button[] optionList;
     public bool optionClicked;
     public bool mute;
@@ -23,6 +25,8 @@ public class Buttons : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<AudioManager>().play("MainMenu");
+
         startGame.GetComponentInChildren<Text>().text = "Start Game";
         options.GetComponentInChildren<Text>().text = "Options";
         credits.GetComponentInChildren<Text>().text = "Credits";
@@ -42,7 +46,12 @@ public class Buttons : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Escape))
         {
             if (optionClicked)
-                optionsBack();
+            {
+                if (creditsMenu.gameObject.activeSelf)
+                    creditsMenu.gameObject.SetActive(false);
+                else
+                    optionsBack();
+            }
             else
                 quitGame();
         }
@@ -147,9 +156,15 @@ public class Buttons : MonoBehaviour
 
     void Credits()
     {
-        
-        SceneManager.LoadScene("Credits");
 
+        //SceneManager.LoadScene("Credits");
+        creditsMenu.gameObject.SetActive(true);
+        StartCoroutine(creditsDelay());
+    }
 
+    IEnumerator creditsDelay()
+    {
+        yield return new WaitForSeconds(5);
+        creditsMenu.gameObject.SetActive(false);
     }
 }

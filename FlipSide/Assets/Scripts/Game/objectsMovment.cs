@@ -7,12 +7,17 @@ public class objectsMovment : MonoBehaviour
     public float speed;
     public static bool incSpeed = false;
     public static bool decSpeed = false;
-
+    public static bool restart;
     void Update()
     {
         if (PauseMenu.isPaused)
             return;
 
+        if (restart)
+        {
+            speed = 10;
+            restart = false;
+        }
 
         if (incSpeed)
         {

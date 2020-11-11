@@ -5,7 +5,7 @@ using UnityEngine;
 public class Options : MonoBehaviour
 {
     public static bool mute;
-    public static float volume;
+    public static float volume=0.8f;
     // Start is called before the first frame update
     void Start()
     {

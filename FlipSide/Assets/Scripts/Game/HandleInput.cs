@@ -12,6 +12,7 @@ public class HandleInput : MonoBehaviour
 
     public static bool switchPlatform = false;
     public static bool switchCamera = false;
+    public static bool restart = false;
 
     public GameObject elvisTop;
     public GameObject elvisBottom;
@@ -31,6 +32,13 @@ public class HandleInput : MonoBehaviour
 
     void Update()
     {
+        if(restart)
+        {
+            bottomPlat = true;  
+            elvisTop.SetActive(false);
+            elvisBottom.SetActive(true);
+            restart = false;
+        }
 
         if (playerCollisions.gameOver)
             return;
@@ -70,7 +78,20 @@ public class HandleInput : MonoBehaviour
             playerCollisions.gameOver = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.R)) //change colors
+        {
+            Behaviour.matChange();
+        }
 
+        if (Input.GetKeyDown(KeyCode.E)) //increase health
+        {
+            playerCollisions.incHealth = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) //increase score
+        {
+            playerCollisions.incScore = true;
+        }
 
 
     }

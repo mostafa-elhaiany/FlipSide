@@ -40,7 +40,6 @@ public class PauseMenu : MonoBehaviour
 
     void restartGame()
     {
-        isPaused = false;
         loadingScreen.gameObject.SetActive(true);
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Collectable");
         foreach (GameObject obj in objs)
@@ -56,9 +55,14 @@ public class PauseMenu : MonoBehaviour
     }
     IEnumerator restarter()
     {
-        yield return new WaitForEndOfFrame();
-        SceneManager.LoadScene("Game");
-        yield return new WaitForEndOfFrame();
+        Behaviour.restart = true;
+        yield return new WaitForSeconds(1f);
+        isPaused = false;
+        FindObjectOfType<AudioManager>().stop("backGroundMusic");
+        FindObjectOfType<AudioManager>().play("backGroundMusic");
+
+        loadingScreen.gameObject.SetActive(false);
+
     }
     void quitGame()
     {

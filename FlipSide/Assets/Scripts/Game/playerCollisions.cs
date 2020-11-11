@@ -7,9 +7,10 @@ public class playerCollisions : MonoBehaviour
 {
     public Text scoreText;
     public Text healhText;
-    private static int score;
-    private static int health;
+    public static int score=0;
+    public static int health=3;
     private bool bottomPlatform;
+    public static bool restart;
     public static bool gameOver=false;
     public float speedMult=1;
 
@@ -17,16 +18,49 @@ public class playerCollisions : MonoBehaviour
     public Animator anim2;
     private int NextBigScore = 50;
 
+    public static bool incHealth;
+    public static bool incScore;
 
+    private static float minGenTime = 0.5f;
 
     void Start()
     {
-        score = 0;
-        health=3;
     }
 
     void Update()
     {
+        if(restart)
+        {
+            score = 0;
+            health = 3;
+            NextBigScore = 50;
+            speedMult = 1;
+            bottomPlatform = true;
+            HandleInput.restart = true;
+            restart = false;
+            gameOver = false;
+        }
+
+        if (incHealth)
+        {
+            health = Mathf.Min(3, health + 1);
+            incHealth = false;
+        }
+        if (incScore)
+        {
+            score += 10;
+            incScore = false;
+            if (score >= NextBigScore)
+            {
+                objectsMovment.incSpeed = true;
+                speedMult += 0.3f;
+
+                Generator.generationTime = Mathf.Max(minGenTime, Generator.generationTime - 0.2f);
+                NextBigScore += 50;
+            }
+        }
+
+
         bottomPlatform = HandleInput.bottom;
 
 
@@ -96,7 +130,7 @@ public class playerCollisions : MonoBehaviour
                 objectsMovment.incSpeed = true;
                 speedMult += 0.3f;
                 
-                Generator.generationTime = Mathf.Max(2, Generator.generationTime - 0.2f);
+                Generator.generationTime = Mathf.Max(minGenTime, Generator.generationTime - 0.2f);
                 NextBigScore += 50;
             }
 

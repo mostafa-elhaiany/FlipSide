@@ -7,7 +7,8 @@ public class Behaviour : MonoBehaviour
 {
     public GameObject player;
     private float time = 0.0f;
-    public float speed = 15.0f;
+    public float speed = 10.0f;
+    public static bool restart = false;
     public float interpolationPeriod = 15;
     
     void Start()
@@ -17,6 +18,16 @@ public class Behaviour : MonoBehaviour
 
     void Update()
     {
+        if(restart)
+        {
+            playerCollisions.restart = true;
+            Generator.generationTime = 5;
+            objectsMovment.restart = true;
+            time = 0.0f;
+            speed = 10.0f;
+            restart = false;
+        }
+
         player = GameObject.FindGameObjectWithTag("Player");
         if (!playerCollisions.gameOver)
         {
@@ -63,5 +74,10 @@ public class Behaviour : MonoBehaviour
             FindObjectOfType<AudioManager>().play("colorChange");
 
         }
+    }
+    public static void matChange()
+    {
+        MaterialChange.usedMat =(MaterialChange.usedMat + 1) % 3;
+        FindObjectOfType<AudioManager>().play("colorChange");
     }
 }

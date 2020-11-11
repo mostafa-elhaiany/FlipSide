@@ -24,9 +24,7 @@ public class GameOverMenu : MonoBehaviour
     void Update()
     {
         isGameover = playerCollisions.gameOver;
-
-
-
+        
         restart.gameObject.SetActive(isGameover);
         quit.gameObject.SetActive(isGameover);
         menu.gameObject.SetActive(isGameover);
@@ -35,16 +33,6 @@ public class GameOverMenu : MonoBehaviour
         restart.GetComponent<Button>().onClick.AddListener(restartGame);
         quit.GetComponent<Button>().onClick.AddListener(quitGame);
     }
-
-    
-
-    //void restartGame()
-    //{
-    //    isGameover = false;
-    //    loadingScreen.gameObject.SetActive(true);
-    //    SceneManager.LoadScene("Game");
-    //}
-
     void restartGame()
     {
         loadingScreen.gameObject.SetActive(true);
@@ -58,15 +46,18 @@ public class GameOverMenu : MonoBehaviour
         {
             GameObject.Destroy(obj.gameObject);
         }
-        isGameover = false;
-        playerCollisions.gameOver = false;
         StartCoroutine(restarter());
     }
     IEnumerator restarter()
     {
-        yield return new WaitForEndOfFrame();
-        SceneManager.LoadScene("Game");
-        yield return new WaitForEndOfFrame();
+        Behaviour.restart = true;
+        yield return new WaitForSeconds(1f);
+        isGameover = false;
+        FindObjectOfType<AudioManager>().stop("backGroundMusic");
+        FindObjectOfType<AudioManager>().play("backGroundMusic");
+
+        loadingScreen.gameObject.SetActive(false);
+
     }
 
 

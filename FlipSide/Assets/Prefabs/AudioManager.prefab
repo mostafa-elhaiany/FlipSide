@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6520018255907933695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6520018255907933689}
+  - component: {fileID: 6520018255907933694}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6520018255907933689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520018255907933695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.7046736, y: -2.3942547, z: 2.0179749}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6520018255907933694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520018255907933695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43e350d17af8f64d8db68edd1a997e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: backGroundMusic
+    clip: {fileID: 8300000, guid: eb78156a7efb5e940a2d855d39febfb6, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 1
+  - name: collect1
+    clip: {fileID: 8300000, guid: 2563263cac528424c98dc64465b6ab83, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0
+  - name: collect2
+    clip: {fileID: 8300000, guid: 5943bd52aa9282d46aad49e8cd6b95b2, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0
+  - name: colorChange
+    clip: {fileID: 8300000, guid: ce8b39109ad593349a11c0773f1f7b64, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0
+  - name: modeChange
+    clip: {fileID: 8300000, guid: ebac19923cbc1504e9a482159abd986d, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0
+  - name: drink
+    clip: {fileID: 8300000, guid: 7811080fee9fc8f488bb9ef6a6a06511, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0
+  - name: incorrect
+    clip: {fileID: 8300000, guid: 1272fac1b2b44ff49af958c65f92b6e5, type: 3}
+    volume: 0.882
+    pitch: 1.27
+    source: {fileID: 0}
+    loop: 0

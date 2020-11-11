@@ -13,7 +13,7 @@ public class Generator : MonoBehaviour
     public float audienceGenerationTime = 0.5f;
     public bool isAudience = false;
 
-
+    private static float nextMeshScale = 2;
 
     void Update()
     {
@@ -22,7 +22,11 @@ public class Generator : MonoBehaviour
 
         if(generationTime<=3)
         {
-            audienceGenerationTime = 0.25f;
+            audienceGenerationTime = 0.01f;
+        }
+        else if (generationTime >= 5)
+        {
+            audienceGenerationTime = 0.5f;
         }
 
         float genTime = isAudience ? audienceGenerationTime : generationTime;
@@ -38,14 +42,24 @@ public class Generator : MonoBehaviour
 
             Vector3 pos = this.gameObject.transform.position;
             r = Random.Range(-10.0f, 10.0f); //50% chance of hazard or collectable
+            GameObject instantiated;
             if (r<0)
             {
-                Instantiate(HazardPrefab, pos, Quaternion.identity);
+                instantiated = Instantiate(HazardPrefab, pos, Quaternion.identity);
             }
             else
             {
-                Instantiate(CapsulePrefab, pos, Quaternion.identity);
+                instantiated = Instantiate(CapsulePrefab, pos, Quaternion.identity);
             }
+            if (genTime < nextMeshScale)
+            {
+                instantiated.transform.localScale = new Vector3(
+                    instantiated.transform.localScale.x,
+                    instantiated.transform.localScale.y,
+                    instantiated.transform.localScale.z * 2);
+                nextMeshScale /= 2;
+            }
+
         }
     }
 }
